@@ -17,7 +17,7 @@ app.get("/users", (req, res) => {
     try {
         axios.get(DATABASE_URL)
             .then(response => {
-                console.log(response.data[0].users)
+                res.send(response.data[0].users)
             }).catch(error => {
                 res.status(500).json({
                     message: error

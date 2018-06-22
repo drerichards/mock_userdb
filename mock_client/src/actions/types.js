@@ -1,0 +1,1 @@
+export const FETCH_API_USERS = 'fetch_api_users'
