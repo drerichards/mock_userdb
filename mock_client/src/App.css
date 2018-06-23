@@ -4,5 +4,41 @@
 }
 
 .card-image {
-  max-height: 120px !important;
+  max-height: 100px !important;
+}
+
+.user-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: #fff;
+  box-shadow: 0 0 0 transparent;
+  padding: 0;
+}
+
+.delete-button:hover,
+.delete-button:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 transparent;
+}
+
+.card-action i {
+  color: #000;
+  font-size: 1.75em;
+  transition: linear 0.15s;
+}
+
+.card-action i:hover {
+  transform: scale(1.2);
+  color: rgb(216, 39, 39);
 }

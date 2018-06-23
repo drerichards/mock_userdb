@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Button } from 'react-materialize'
 import {fetchApiUsers} from '../actions/index'
 import UserCard from './UserCard'
 
@@ -14,16 +15,11 @@ class UserList extends Component {
         this.props.fetchApiUsers()
     }
 
-    renderUsers(){
-        return !this.props.users ? <div>No Users Found</div> :
-        this.props.users.map((user, i) => <UserCard key={i} userData={user} />)
-    }
-
     render() {
-        console.log(this.props.users)
         return (
             <div style={divStyle}>
-                {this.renderUsers()}
+                <Button floating large className='red' waves='light' icon='add'/>
+                <UserCard/>
             </div>
         )
     }
