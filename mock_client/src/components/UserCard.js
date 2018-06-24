@@ -28,7 +28,7 @@ class UserCard extends Component {
     initializeState(userData){
         if (!this.state.initialized){
            this.setState({
-                userID: userData.id['$oid'],
+                userID: userData.id,
                 firstName: userData.first_name,
                 lastName: userData.last_name,
                 email: userData.email,
@@ -72,24 +72,22 @@ class UserCard extends Component {
     }
 
     deleteRecord(userID){
-        // console.log(userID)
-        const id = {userID}
-        this.props.deleteUserRecord(id)
+        this.props.deleteUserRecord(userID)
     }
 
     renderUsers(){
         const {users} = this.props
-        return !users ? <div>No Users Found</div> :
+        return !users || users.length < 1 ? <div>No User Records Found</div> :
         users.map((user, i) => 
             <Card style={cardStyle} className='small' key={i}
                 header={<CardTitle image={user.avatar}></CardTitle>}
                 actions={[
-                    <Modal key={user.id['$oid']}
+                    <Modal key={user._id}
                         header='Edit User Record'
                         trigger={<Button>Edit User</Button>}>
                         {this.modalContent(user)}
                     </Modal>, 
-                    <Button className="delete-button" onClick={e => this.deleteRecord(user.id['$oid'])} waves='light'><Icon>delete_outline</Icon></Button>
+                    <Button className="delete-button" onClick={e => this.deleteRecord(user._id)} waves='light'><Icon>delete_outline</Icon></Button>
                 ]}>
                 <div>
                     <h6>Name: <p style={textStyle}>{user.first_name} {user.last_name}</p></h6>

@@ -1,5 +1,4 @@
-axios = require('axios')
-const {DATABASE_URL} = require("../config")
+const userRecords = require('../userRecords')
 module.exports = app => {
     const { User } = require('../models/models')
 
@@ -11,8 +10,8 @@ module.exports = app => {
                         message: err
                     })
                 }
-                console.log(data[0])
-                res.send(data[0])
+                // console.log(data)
+                res.send(data)
             })
         } catch (error) {
             res.status(500).json({
@@ -32,23 +31,32 @@ module.exports = app => {
     })
 
     //delete
-    app.put("/user/delete", (req, res) => {
+    app.delete("/user/:id/delete", (req, res) => {
+        console.log(req.params)
         try {
-            // console.log(User)
-            User.update({
-                id: '5b2ca731e7179a589286c386'
-            }, {
-                    $pull: {
-
-                    }
+            User.deleteOne({_id: req.params.id}, (err) => {
+                if (err){
+                    res.status(500).json({
+                        message: err
+                    })
+                }
+                res.sendStatus(200)
             })
-            // axios.put(DATABASE_URL, req.body)
-            //     .then(response => {
-            //         console.log(response)
-            //     }).catch(error => {
-            //         console.log(error)
-            //     })
-            // res.sendStatus(200)
+        } catch (error) {
+            return error
+        }
+    })
+
+    // reset db
+    app.post('/post', (req, res) => {
+        try {
+            User.insertMany(userRecords)
+            .then(response => {
+                res.send(response)
+            })
+            .catch(err => {
+                res.send(err)
+            })
         } catch (error) {
             console.log(error)
         }

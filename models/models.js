@@ -20,8 +20,12 @@ const UserSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    avatar: {
+        type: String,
+        required: true
+    }
 })
 
-const User = mongoose.model('User', UserSchema, 'user_data')
+const User = mongoose.model('User', UserSchema)
 
 module.exports = { User }

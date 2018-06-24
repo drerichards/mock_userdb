@@ -12,9 +12,9 @@ export default function (state = [], action) {
             // return action.payload
             return state
         case DELETE_USER:
-            console.log(action.payload)
-            // return action.payload
-            return state
+            const newState = [...state]
+            newState.splice(action.payload, 1)
+            return newState
         default:
             return state
     }
