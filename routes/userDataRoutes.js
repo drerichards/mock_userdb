@@ -17,4 +17,23 @@ module.exports = app => {
             })
         }
     })
+
+   //edit
+   app.post("/user/edit", (req, res) => {
+        try {
+            console.log(req.body)
+            res.sendStatus(200)
+        } catch (error) {
+            
+        }
+    })
+
+    //delete
+    app.put("/user/delete", (req, res) => {
+        try {
+            res.sendStatus(200)
+        } catch (error) {
+            
+        }
+    })
 }

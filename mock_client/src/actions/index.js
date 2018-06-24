@@ -1,8 +1,5 @@
 import axios from 'axios'
-import { FETCH_API_USERS } from './types'
-import { ADD_USER } from './types'
-import { EDIT_USER } from './types'
-import { DELETE_USER } from './types'
+import { FETCH_API_USERS, ADD_USER, EDIT_USER, DELETE_USER } from './types'
 const url = "http://localhost:5000"
 
 export const fetchApiUsers = dispatch => {
@@ -32,11 +29,11 @@ export const addUser = (dispatch, userRecord) => {
 
 export const editUser = (dispatch, userRecord) => {
     try {
-        console.log(userRecord)
+        // console.log(userRecord)
         const route = `${url}/user/edit`
-        axios.get(route, userRecord)
+        axios.post(route, userRecord)
             .then(response => {
-                dispatch({type: EDIT_USER, payload: response.data })
+                dispatch({type: EDIT_USER, payload: userRecord })
             })
     } catch (error) {
         return error
@@ -45,11 +42,11 @@ export const editUser = (dispatch, userRecord) => {
 
 export const deleteUser = (dispatch, userID) => {
     try {
-        console.log(userID)
+        // console.log(userID)
         const route = `${url}/user/delete`
-        axios.get(route, userID)
+        axios.put(route, userID)
             .then(response => {
-                dispatch({type: DELETE_USER, payload: id })
+                dispatch({type: DELETE_USER, payload: userID })
             })
     } catch (error) {
         return error

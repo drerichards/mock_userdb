@@ -4,11 +4,7 @@ const express = require("express"),
     app = express(),
     cors = require("cors"),
     bodyParser = require("body-parser"),
-    axios = require('axios'),
-    {
-        DATABASE_URL,
-        PORT
-    } = require("./config")
+    {PORT} = require("./config")
 
 app.use(cors())
 app.use(bodyParser.json())

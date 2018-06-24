@@ -73,7 +73,8 @@ class UserCard extends Component {
 
     deleteRecord(userID){
         // console.log(userID)
-        this.props.deleteUserRecord(userID)
+        const id = {userID}
+        this.props.deleteUserRecord(id)
     }
 
     renderUsers(){
