@@ -7,7 +7,8 @@ export const fetchApiUsers = dispatch => {
         const route = `${url}/users`
         axios.get(route)
             .then(response => {
-                dispatch({type: FETCH_API_USERS, payload: response.data })
+                console.log(response.data.users)
+                dispatch({type: FETCH_API_USERS, payload: response.data.users })
             })
     } catch (error) {
         return error
