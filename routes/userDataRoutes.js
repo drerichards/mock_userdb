@@ -4,13 +4,12 @@ module.exports = app => {
 
     app.get("/users", (req, res) => {
         try {
-            User.find({}, (err, data) => {
-                if (err){
+            User.find({}, (error, data) => {
+                if (error){
                     res.status(500).json({
-                        message: err
+                        message: error
                     })
                 }
-                // console.log(data)
                 res.send(data)
             })
         } catch (error) {
@@ -20,9 +19,27 @@ module.exports = app => {
         }
     })
 
+    //add
+   app.post("/user/add", (req, res) => {
+       try {
+            User.create(req.body)
+            .then(response => {
+                res.send(response)
+            })
+            .catch(error => {
+                res.send(error)
+            })
+        } catch (error) {
+            res.status(500).json({
+                message: error
+            })
+        }
+    })
+
+
+
    //edit
    app.post("/user/edit", (req, res) => {
-       console.log(req.body)
        const {first_name, last_name, username, email} = req.body
         try {
             User.findByIdAndUpdate(req.body._id, 
@@ -33,13 +50,10 @@ module.exports = app => {
                         username,
                         email
                     }
-                }, {new: true}, (err, record) => {
-                    if (err) {
-                        res.status(500).json({
-                            message: error
-                        })
+                }, {new: true}, (error, record) => {
+                    if (error) {
+                        res.send(error)
                     }
-                    console.log(record)
                     res.send(record)
                 })
         } catch (error) {
@@ -52,10 +66,10 @@ module.exports = app => {
     //delete
     app.delete("/user/:id/delete", (req, res) => {
         try {
-            User.deleteOne({_id: req.params.id}, (err) => {
-                if (err){
+            User.deleteOne({_id: req.params.id}, (error) => {
+                if (error){
                     res.status(500).json({
-                        message: err
+                        message: error
                     })
                 }
                 res.sendStatus(200)
@@ -72,11 +86,13 @@ module.exports = app => {
             .then(response => {
                 res.send(response)
             })
-            .catch(err => {
-                res.send(err)
+            .catch(error => {
+                res.send(error)
             })
         } catch (error) {
-            console.log(error)
+            res.status(500).json({
+                message: error
+            })
         }
     })
 }

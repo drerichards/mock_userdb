@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Icon } from 'react-materialize'
+import { Button } from 'react-materialize'
 import {fetchApiUsers} from '../actions/index'
 import UserCard from './UserCard'
 import EditUserView from './EditUserView'
 import AddUserView from './AddUserView'
-import {editUser} from '../actions/index'
+import {editUser, addUser} from '../actions/index'
 
 class UserList extends Component {
     constructor(props){
@@ -37,8 +37,13 @@ class UserList extends Component {
 
     saveData = () => {
         this.setState({toggleVisibility: false})
-        const {_id, first_name, last_name, username, email, index} = this.state
-        this.props.editUserRecord({_id, first_name, last_name, username, email, index})
+        const {first_name, last_name, username, email} = this.state
+        this.valueValidator([first_name, last_name, username, email])
+        
+    }
+
+    cancelChanges = () => {
+        this.setState({toggleVisibility: false})
     }
 
     onInputChange = e => {
@@ -60,17 +65,37 @@ class UserList extends Component {
         }
     }
 
+    valueValidator = data => {
+        let empty
+        data.forEach(element => {
+            if (element.length < 1) {
+                empty = false
+            }
+        })
+        if(empty === false) {
+            return alert('All fields must contain entries to Save Record')
+        } else {
+            const {_id, first_name, last_name, username, email, index, showAddView} = this.state
+            !showAddView ? this.props.editUserRecord({_id, first_name, last_name, username, email, index}) :
+            this.props.addUserRecord({first_name, last_name, username, email})
+        }
+    }
+
     render() {
         return (
             <div className='main-container'>
                 <UserCard getData={this.getData}/>
-                <Button onClick={() => {this.setState({showAddView: true})}}  className={!this.state.toggleVisibility ? '' : 'hide'} 
-                    waves='light'>Add User<Icon left medium>add</Icon>
-                </Button>
-                <EditUserView toggleVisibility={this.state.toggleVisibility} 
-                    data={this.state} onInputChange={this.onInputChange} saveData={this.saveData} />
-                <AddUserView showAddView={this.state.showAddView} 
-                    onInputChange={this.onInputChange} saveData={this.saveData} />
+                <aside>
+                    <section>
+                        <Button onClick={() => {this.setState({showAddView: !this.state.showAddView})}}  className={!this.state.toggleVisibility ? '' : 'hide'} 
+                            waves='light'>{!this.state.showAddView ? 'Add User' : 'Cancel'}
+                        </Button>
+                        <AddUserView showAddView={this.state.showAddView} 
+                            onInputChange={this.onInputChange} saveData={this.saveData} />
+                    </section>
+                    <EditUserView toggleVisibility={this.state.toggleVisibility} 
+                    data={this.state} onInputChange={this.onInputChange} saveData={this.saveData} cancelChanges={this.cancelChanges} />
+                </aside>
             </div>
         )
     }
@@ -80,7 +105,8 @@ const mapStateToProps = ({ users }) => { return { users } }
 const mapDispatchToProps = dispatch => {
     return {
         fetchApiUsers: () => fetchApiUsers(dispatch),
-        editUserRecord: (userRecord) => editUser(dispatch, userRecord)
+        editUserRecord: (userRecord) => editUser(dispatch, userRecord),
+        addUserRecord: (userRecord) => addUser(dispatch, userRecord),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserList)

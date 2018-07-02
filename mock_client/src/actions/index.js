@@ -16,9 +16,8 @@ export const fetchApiUsers = dispatch => {
 
 export const addUser = (dispatch, userRecord) => {
     try {
-        console.log(userRecord)
         const route = `${url}/user/add`
-        axios.get(route, userRecord)
+        axios.post(route, userRecord)
             .then(response => {
                 dispatch({type: ADD_USER, payload: response.data })
             })
@@ -32,10 +31,12 @@ export const editUser = (dispatch, userRecord) => {
         const route = `${url}/user/edit`
         axios.post(route, userRecord)
             .then(response => {
-                dispatch({type: EDIT_USER, payload: userRecord })
+                if(response.data._id){
+                    dispatch({type: EDIT_USER, payload: userRecord })
+                } else dispatch({type: EDIT_USER, payload: response.data.message })
             })
         } catch (error) {
-        return error
+            return error
     }
 }
 

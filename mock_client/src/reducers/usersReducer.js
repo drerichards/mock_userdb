@@ -5,13 +5,31 @@ export default function (state = [], action) {
         case FETCH_API_USERS:
             return action.payload
         case ADD_USER:
-            return action.payload
+            const addData = action.payload
+            if(addData._id){
+                const newAddState = [...state]
+                newAddState.unshift({
+                    _id: addData._id,
+                    first_name: addData.first_name,
+                    last_name: addData.last_name,
+                    username: addData.username,
+                    email: addData.username})
+                return newAddState
+            } else {
+                alert(addData.message)
+                return state
+            }
         case EDIT_USER:
-            const newEditState = [...state]
-            const {_id, first_name, last_name, username, email, index} = action.payload
-            newEditState.splice(index, 1, 
-                {_id, first_name, last_name, username, email})
-            return newEditState
+            if(action.payload._id) {
+                const newEditState = [...state]
+                const {_id, first_name, last_name, username, email, index} = action.payload
+                newEditState.splice(index, 1, 
+                    {_id, first_name, last_name, username, email})
+                return newEditState
+            } else {
+                alert(action.payload)
+                return state
+            }
         case DELETE_USER:
             const newDeleteState = [...state]
             newDeleteState.splice(action.payload, 1)

@@ -1,17 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
-import { Card, CardTitle, Button, Icon } from 'react-materialize'
+import { Card, Button, Icon } from 'react-materialize'
 import {deleteUser} from '../actions/index'
 
 const textStyle = {
     display: 'inline-block'
-}
-
-const cardStyle = {
-    minHeight: '200px',
-    width: '20%',
-    margin: '2%',
-    minWidth: '200px'
 }
 
 class UserCard extends Component {
@@ -19,7 +12,7 @@ class UserCard extends Component {
         const {users} = this.props
         return !users || users.length < 1 ? <div>No User Records Found</div> :
         users.map((user, i) => 
-            <Card id={i} style={cardStyle} className='small user-card' key={i}
+            <Card id={i} className='small user-card' key={i}
                 actions={[
                     <Button waves='light' onClick={() => this.props.getData(user, i)}>Edit User</Button>, 
                     <Button className="delete-button" 
