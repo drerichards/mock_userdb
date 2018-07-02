@@ -22,17 +22,35 @@ module.exports = app => {
 
    //edit
    app.post("/user/edit", (req, res) => {
+       console.log(req.body)
+       const {first_name, last_name, username, email} = req.body
         try {
-            console.log(req.body)
-            res.sendStatus(200)
+            User.findByIdAndUpdate(req.body._id, 
+                {
+                    $set: {
+                        first_name,
+                        last_name,
+                        username,
+                        email
+                    }
+                }, {new: true}, (err, record) => {
+                    if (err) {
+                        res.status(500).json({
+                            message: error
+                        })
+                    }
+                    console.log(record)
+                    res.send(record)
+                })
         } catch (error) {
-            
+            res.status(500).json({
+                message: error
+            })
         }
     })
 
     //delete
     app.delete("/user/:id/delete", (req, res) => {
-        console.log(req.params)
         try {
             User.deleteOne({_id: req.params.id}, (err) => {
                 if (err){

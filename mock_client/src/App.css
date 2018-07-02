@@ -7,10 +7,25 @@
   max-height: 100px !important;
 }
 
-.user-card {
+.user-card-section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+  height: 50vh;
+  overflow: auto;
+}
+
+.user-card {
+  background-color: rgba(169, 218, 158, 0.198);
+}
+
+.user-card:nth-child(3n-1) {
+  background-color: rgba(79, 132, 139, 0.134);
+}
+
+.user-card:nth-child(3n-3) {
+  background-color: rgba(163, 91, 103, 0.161);
 }
 
 .card-action {
@@ -21,14 +36,14 @@
 }
 
 .delete-button {
-  background-color: #fff;
+  background-color: transparent;
   box-shadow: 0 0 0 transparent;
   padding: 0;
 }
 
 .delete-button:hover,
 .delete-button:focus {
-  background-color: #fff;
+  background-color: transparent;
   box-shadow: 0 0 0 transparent;
 }
 
@@ -41,4 +56,24 @@
 .card-action i:hover {
   transform: scale(1.2);
   color: rgb(216, 39, 39);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit_window {
+  width: 50%;
+  padding: 3em;
+}
+
+.edit_window h5 {
+  text-transform: capitalize;
+}
+
+.hide {
+  display: none;
 }

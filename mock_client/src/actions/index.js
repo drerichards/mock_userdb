@@ -7,7 +7,6 @@ export const fetchApiUsers = dispatch => {
         const route = `${url}/users`
         axios.get(route)
             .then(response => {
-                console.log(response.data)
                 dispatch({type: FETCH_API_USERS, payload: response.data })
             })
     } catch (error) {
@@ -30,13 +29,12 @@ export const addUser = (dispatch, userRecord) => {
 
 export const editUser = (dispatch, userRecord) => {
     try {
-        // console.log(userRecord)
         const route = `${url}/user/edit`
         axios.post(route, userRecord)
             .then(response => {
                 dispatch({type: EDIT_USER, payload: userRecord })
             })
-    } catch (error) {
+        } catch (error) {
         return error
     }
 }
@@ -44,7 +42,6 @@ export const editUser = (dispatch, userRecord) => {
 export const deleteUser = (dispatch, id) => {
     try {
         const route = `${url}/user/${id}/delete`
-        console.log(route)
         axios.delete(route)
             .then(response => {
                 dispatch({type: DELETE_USER, payload: id })
