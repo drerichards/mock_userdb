@@ -7,11 +7,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 2%;
+  /* margin-right: 2%; */
+  padding: 1%;
 }
 
 .user-card-section {
-  /* flex-grow: 1; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -20,27 +20,35 @@
   overflow: auto;
 }
 
-.main-container aside {
+.aside-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   width: 25%;
+  height: 70vh;
+  padding: 1%;
+}
+
+.aside-container aside {
   padding: 1%;
   background-color: rgba(255, 251, 224, 0.552);
 }
 
-.main-container aside section {
+.aside-container aside section {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
 
-.main-container aside section button {
+.aside-container aside section button {
   min-width: 100px;
 }
 
 .user-card {
   background-color: rgba(213, 218, 158, 0.198);
   width: 18%;
-  margin: 2%;
+  margin: 2% 1%;
 }
 
 .user-card:nth-child(3n-1) {
@@ -75,16 +83,14 @@
   font-size: 1.75em;
   transition: linear 0.15s;
 }
-
+ß
 .card-action i:hover {
   transform: scale(1.2);
   color: rgb(216, 39, 39);
 }
 
-
-
 .edit_window {
-  padding: 3em;
+  padding: 3%;
 }
 
 .edit_window h5 {
@@ -94,7 +100,8 @@
 .edit_window button {
   margin: 2% 5%;
 }
-.cancel-btn{
+
+.cancel-btn {
   background-color: rgb(255, 125, 81);
 }
 

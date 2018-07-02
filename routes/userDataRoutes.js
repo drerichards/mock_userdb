@@ -80,7 +80,7 @@ module.exports = app => {
     })
 
     // reset db
-    app.post('/post', (req, res) => {
+    app.post('/reset_database', (req, res) => {
         try {
             User.insertMany(userRecords)
             .then(response => {

@@ -1,4 +1,4 @@
-import {FETCH_API_USERS, ADD_USER, EDIT_USER, DELETE_USER} from '../actions/types'
+import {FETCH_API_USERS, ADD_USER, EDIT_USER, DELETE_USER, RESET_USER_DB} from '../actions/types'
 
 export default function (state = [], action) {
     switch (action.type) {
@@ -34,6 +34,8 @@ export default function (state = [], action) {
             const newDeleteState = [...state]
             newDeleteState.splice(action.payload, 1)
             return newDeleteState
+        case RESET_USER_DB:
+            return action.payload
         default:
             return state
     }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { FETCH_API_USERS, ADD_USER, EDIT_USER, DELETE_USER } from './types'
+import { FETCH_API_USERS, ADD_USER, EDIT_USER, DELETE_USER, RESET_USER_DB } from './types'
 const url = "http://localhost:5000"
 
 export const fetchApiUsers = dispatch => {
@@ -46,6 +46,18 @@ export const deleteUser = (dispatch, id) => {
         axios.delete(route)
             .then(response => {
                 dispatch({type: DELETE_USER, payload: id })
+            })
+    } catch (error) {
+        return error
+    }
+}
+
+export const resetUserDB = (dispatch) => {
+    try {
+        const route = `${url}/reset_database`
+        axios.post(route)
+            .then(response => {
+                dispatch({type: RESET_USER_DB, payload: response.data })
             })
     } catch (error) {
         return error

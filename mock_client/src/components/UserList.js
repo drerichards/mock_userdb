@@ -5,7 +5,7 @@ import {fetchApiUsers} from '../actions/index'
 import UserCard from './UserCard'
 import EditUserView from './EditUserView'
 import AddUserView from './AddUserView'
-import {editUser, addUser} from '../actions/index'
+import {editUser, addUser, resetUserDB} from '../actions/index'
 
 class UserList extends Component {
     constructor(props){
@@ -45,7 +45,7 @@ class UserList extends Component {
     cancelChanges = () => {
         this.setState({toggleVisibility: false})
     }
-
+    
     onInputChange = e => {
         switch (e.currentTarget.id) {
             case 'firstName':
@@ -85,17 +85,20 @@ class UserList extends Component {
         return (
             <div className='main-container'>
                 <UserCard getData={this.getData}/>
-                <aside>
-                    <section>
-                        <Button onClick={() => {this.setState({showAddView: !this.state.showAddView})}}  className={!this.state.toggleVisibility ? '' : 'hide'} 
-                            waves='light'>{!this.state.showAddView ? 'Add User' : 'Cancel'}
-                        </Button>
-                        <AddUserView showAddView={this.state.showAddView} 
-                            onInputChange={this.onInputChange} saveData={this.saveData} />
-                    </section>
-                    <EditUserView toggleVisibility={this.state.toggleVisibility} 
-                    data={this.state} onInputChange={this.onInputChange} saveData={this.saveData} cancelChanges={this.cancelChanges} />
-                </aside>
+                <div className='aside-container'>
+                    <aside>
+                        <section>
+                            <Button onClick={() => {this.setState({showAddView: !this.state.showAddView})}} className={!this.state.toggleVisibility ? '' : 'hide'} 
+                                waves='light'>{!this.state.showAddView ? 'Add User' : 'Cancel'}
+                            </Button>
+                            <AddUserView showAddView={this.state.showAddView} 
+                                onInputChange={this.onInputChange} saveData={this.saveData} />
+                        </section>
+                        <EditUserView toggleVisibility={this.state.toggleVisibility} 
+                        data={this.state} onInputChange={this.onInputChange} saveData={this.saveData} cancelChanges={this.cancelChanges} />
+                    </aside>
+                    <Button waves='light' onClick={() => {this.props.resetDb()}}>Reset Database</Button>
+                </div>
             </div>
         )
     }
@@ -107,6 +110,7 @@ const mapDispatchToProps = dispatch => {
         fetchApiUsers: () => fetchApiUsers(dispatch),
         editUserRecord: (userRecord) => editUser(dispatch, userRecord),
         addUserRecord: (userRecord) => addUser(dispatch, userRecord),
+        resetDb: () => resetUserDB(dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserList)
