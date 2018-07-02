@@ -77,13 +77,13 @@
   box-shadow: 0 0 0 transparent;
 }
 
-.card-action i {
+.delete-button i {
   color: #000;
   font-size: 1.75em;
   transition: linear 0.15s;
 }
-ß
-.card-action i:hover {
+
+.delete-button i:hover {
   transform: scale(1.2);
   color: rgb(216, 39, 39);
 }
